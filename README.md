@@ -705,7 +705,7 @@ After the 10 selected remediations were implemented and manually verified, the s
 ## References
 
 - [DISA STIGs Document Library](https://www.cyber.mil/stigs/downloads/)
-- [Windows 11 STIG Latest]([https://www.cyber.mil/stigs/downloads/](https://stigaview.com/products/win11/latest/))
+- [Windows 11 STIG Latest](https://www.cyber.mil/stigs/downloads/](https://stigaview.com/products/win11/latest/))
 - [DISA Security Content Automation Protocol (SCAP) Benchmarks](https://www.cyber.mil/stigs/scap/)
 - [Tenable Policy Compliance Auditing Documentation](https://docs.tenable.com/nessus/Content/ScanAndPolicyTemplates.htm)
 - `[Add the exact Windows 11 STIG release, audit-file page, or course/lab reference used.]`
