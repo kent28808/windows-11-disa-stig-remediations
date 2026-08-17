@@ -97,7 +97,7 @@ The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access
 
 ### Baseline Tenable Audit
 
-The target was assessed with a credentialed Tenable compliance audit using **`[exact audit-file or benchmark name]`**. The scan identified the initial configuration state before the 10 selected requirements were remediated.
+The target was assessed with a credentialed Tenable compliance audit using **`DISA_STIG_Microsoft_Windows_11_v2r7`**. The scan identified the initial configuration state before the 10 selected requirements were remediated.
 
 ![Baseline Tenable compliance results for the Windows 11 lab VM](assets/tenable-baseline-summary.png)
 
@@ -113,7 +113,7 @@ The target was assessed with a credentialed Tenable compliance audit using **`[e
 | Not applicable | `[number, if reported]` |
 | Errors or incomplete checks | `[number, if reported]` |
 
-📄 **Baseline report:** [View the full Tenable baseline report](reports/tenable-baseline-report.pdf)
+📄 **Baseline report:** [View the full Tenable baseline report](https://github.com/kent28808/windows-11-disa-stig-remediations/blob/main/assets/Win11-STIG-initialscan.pdf)
 
 ### Assessment Consistency Controls
 
