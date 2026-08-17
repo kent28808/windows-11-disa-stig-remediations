@@ -54,22 +54,21 @@ A credentialed Tenable compliance audit was performed before and after remediati
 
 | Component | Lab Configuration |
 | --- | --- |
-| Target system | `[VM name or hostname]` |
-| Operating system | `Windows 11 [Enterprise/Professional] [23H2/24H2/etc.]` |
-| OS build | `[Build number]` |
-| Deployment platform | `[Azure / VMware / Hyper-V / VirtualBox / other]` |
-| Administrative access | `[Local administrator / domain administrator / other]` |
-| Remediation tool | `Windows PowerShell [version]` |
-| Compliance scanner | `[Tenable Nessus / Tenable Vulnerability Management] [version, if known]` |
-| Scan template | `[Policy Compliance Auditing / exact template name]` |
-| Audit file or benchmark | `[Exact audit-file or benchmark name]` |
-| DISA STIG release used | `Microsoft Windows 11 STIG, Version [X], Release [Y]` |
-| Baseline scan date | `[YYYY-MM-DD]` |
+| Target system | `Ken-Win-11-STIGs` |
+| Operating system | `Windows 11 Pro 25H2` |
+| OS build | `26200.9168` |
+| Deployment platform | `Azure` |
+| Administrative access | `Local administrator` |
+| Remediation tool | `Windows PowerShell 5.1.26100.9168` |
+| Compliance scanner | `Tenable Nessus 10.12.3` |
+| Scan template | `Advanced Network Scan/Win11-STIG-Implementation-KenT]` |
+| Audit file or benchmark | `DISA_STIG_Microsoft_Windows_11_v2r7` |
+| DISA STIG release used | `Microsoft Windows 11 STIG, Version 2, Release 7 (V2R7)` |
+| Baseline scan date | `08-16-2026` |
 | Follow-up scan date | `[YYYY-MM-DD]` |
 
-> Record the exact STIG and audit-file versions shown in your scan report. STIG content and automated audit files are updated over time.
-
 ---
+
 ## Lab Architecture
 
 The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access was restricted through an Azure Network Security Group (NSG), while authorized administrative access was used to perform PowerShell remediation and credentialed Tenable compliance assessments.
