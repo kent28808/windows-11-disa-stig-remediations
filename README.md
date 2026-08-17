@@ -16,6 +16,7 @@ A credentialed Tenable compliance audit was performed before and after remediati
 
 - [Objectives](#objectives)
 - [Lab Environment](#lab-environment)
+- [Lab Architecture](#lab-architecture)
 - [Methodology](#methodology)
 - [Phase 1: Baseline Compliance Assessment](#phase-1-baseline-compliance-assessment)
 - [Phase 2: Individual STIG Remediations](#phase-2-individual-stig-remediations)
@@ -67,6 +68,15 @@ A credentialed Tenable compliance audit was performed before and after remediati
 | Follow-up scan date | `[YYYY-MM-DD]` |
 
 > Record the exact STIG and audit-file versions shown in your scan report. STIG content and automated audit files are updated over time.
+
+---
+## Lab Architecture
+
+The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access was restricted through an Azure Network Security Group (NSG), while authorized administrative access was used to perform PowerShell remediation and credentialed Tenable compliance assessments.
+
+<img width="1401" height="787" alt="netarch" src="https://github.com/user-attachments/assets/4a7b4bdd-5f98-4156-be6b-7e6dde8ba810" />
+
+*Figure 1. Windows 11 DISA STIG lab architecture showing controlled administrative access and credentialed Tenable compliance assessment of the dedicated Azure VM.*
 
 ---
 
