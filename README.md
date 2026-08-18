@@ -4,7 +4,7 @@
 
 ## Overview
 
-This project documents the assessment, remediation, and validation of **10 selected requirements** from the **DISA Microsoft Windows 11 Security Technical Implementation Guide (STIG)** in an authorized lab environment. Each selected requirement was evaluated using its documented check criteria, confirmed as non-compliant, remediated with PowerShell where appropriate, and rechecked to verify the resulting configuration.
+This project documents the assessment, remediation, and validation of **10 selected requirements** from the **Defense Information Systems Agency (DISA) Microsoft Windows 11 Security Technical Implementation Guide (STIG)** in an authorized lab environment. Each selected requirement was evaluated using its documented check criteria, confirmed as non-compliant, remediated with PowerShell where appropriate, and rechecked to verify the resulting configuration.
 
 A credentialed Tenable compliance audit was performed before and after remediation using the same target, credentials, scan policy, and benchmark version. The repository contains PowerShell scripts, command output, screenshots, and exported scan reports that document the work.
 
