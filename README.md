@@ -225,7 +225,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 | CCI | `CCI-000172`, `CCI-001814`, `CCI-003938` |
 | Validation method | `Audit policy command` |
 
-**Requirement:** The Detailed Tracking - Process Creation audit subcategory must record successful process-creation events.
+**Requirement:** Process Creation audit subcategory must record successful process-creation events.
 
 **Security rationale:** Process-creation auditing provides evidence of programs executed on the system and supports incident detection, investigation, and forensic analysis.
 
@@ -237,7 +237,7 @@ auditpol /get /subcategory:"Process Creation"
 
 **Observed state:** The baseline Tenable audit reported `No Auditing`, so successful process creation events were not being audited.
 
-![Process Creation auditing disabled before remediation](assets/STIG-02-before.png)
+<img width="661" height="161" alt="before" src="https://github.com/user-attachments/assets/717cf108-508c-4a4f-ad0a-91ea3415df22" />
 
 *Figure 4. Pre-remediation validation for `WN11-AU-000050`, showing that Process Creation success auditing was not enabled.*
 
@@ -245,7 +245,29 @@ auditpol /get /subcategory:"Process Creation"
 
 Enabled success auditing for the Process Creation subcategory.
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-AU-000050.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-AU-000050.ps1)
+
+```powershell
+$ErrorActionPreference = 'Stop'
+
+# Enable advanced audit subcategories over legacy audit categories.
+New-ItemProperty `
+    -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Lsa' `
+    -Name 'SCENoApplyLegacyAuditPolicy' `
+    -PropertyType DWord `
+    -Value 1 `
+    -Force | Out-Null
+
+# Enable Process Creation success auditing.
+& auditpol.exe /set "/subcategory:Process Creation" /success:enable
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Failed to configure Process Creation auditing."
+}
+
+# Display the resulting configuration.
+& auditpol.exe /get "/subcategory:Process Creation"
+```
 
 #### Verification
 
@@ -297,6 +319,10 @@ Created the required registry path if necessary and set `ProcessCreationIncludeC
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000066.ps1)
 
+```powershell
+Script
+```
+
 #### Verification
 
 Repeat the same registry query. The required compliant value is `ProcessCreationIncludeCmdLine_Enabled = 1`.
@@ -346,6 +372,10 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Scr
 Created the required registry path if necessary and set `EnableScriptBlockLogging` to `1` (`REG_DWORD`).
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000326.ps1)
+
+```powershell
+Script
+```
 
 #### Verification
 
@@ -397,6 +427,10 @@ Created the required registry path if necessary and set `AlwaysInstallElevated` 
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000315.ps1)
 
+```powershell
+Script
+```
+
 #### Verification
 
 Repeat the same registry query. The required compliant value is `AlwaysInstallElevated = 0`.
@@ -446,6 +480,10 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
 Created the required registry path if necessary and set `NoAutoplayfornonVolume` to `1` (`REG_DWORD`).
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000180.ps1)
+
+```powershell
+Script
+```
 
 #### Verification
 
@@ -497,6 +535,10 @@ Created the required registry path if necessary and set `AllowGameDVR` to `0` (`
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000252.ps1)
 
+```powershell
+Script
+```
+
 #### Verification
 
 Repeat the same registry query. The required compliant value is `AllowGameDVR = 0`.
@@ -546,6 +588,10 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' 
 Created the required registry path if necessary and set `DisableWindowsConsumerFeatures` to `1` (`REG_DWORD`).
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000197.ps1)
+
+```powershell
+Script
+```
 
 #### Verification
 
@@ -597,6 +643,10 @@ Created the required registry path if necessary and set `NoLockScreenSlideshow` 
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000010.ps1)
 
+```powershell
+Script
+```
+
 #### Verification
 
 Repeat the same registry query. The required compliant value is `NoLockScreenSlideshow = 1`.
@@ -646,6 +696,10 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client' 
 Created the required registry path if necessary and set `AllowBasic` to `0` (`REG_DWORD`).
 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000330.ps1)
+
+```powershell
+Script
+```
 
 #### Verification
 
