@@ -61,7 +61,7 @@ A credentialed Tenable compliance audit was performed before and after remediati
 | Administrative access | `Local administrator` |
 | Remediation tool | `Windows PowerShell 5.1.26100.9168` |
 | Compliance scanner | `Tenable Nessus 10.12.3` |
-| Scan template | `Advanced Network Scan/Win11-STIG-Implementation-KenT]` |
+| Scan template | `Advanced Network Scan/Win11-STIG-Implementation-KenT` |
 | Audit file or benchmark | `DISA_STIG_Microsoft_Windows_11_v2r7` |
 | DISA STIG release used | `Microsoft Windows 11 STIG, Version 2, Release 7 (V2R7)` |
 | Baseline scan date | `08-16-2026` |
@@ -88,9 +88,6 @@ The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access
 5. **Reassess the host:** Repeat the Tenable audit with the same target, credentials, policy, and benchmark version.
 6. **Compare results:** Correlate the 10 selected STIG IDs with their final Tenable results and document any exceptions.
 
-> A registry value alone is sufficient evidence only when the applicable STIG check procedure evaluates that registry value. For non-registry requirements, use the command, policy, service, account, file, or manual validation method specified by the STIG.
-
-
 ---
 
 ## Phase 1: Baseline Compliance Assessment
@@ -99,19 +96,18 @@ The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access
 
 The target was assessed with a credentialed Tenable compliance audit using **`DISA_STIG_Microsoft_Windows_11_v2r7`**. The scan identified the initial configuration state before the 10 selected requirements were remediated.
 
-![Baseline Tenable compliance results for the Windows 11 lab VM](assets/tenable-baseline-summary.png)
+<img width="1606" height="1206" alt="initialoverview" src="https://github.com/user-attachments/assets/84f0221e-9378-40ac-9be0-e74f2d96b111" />
 
-*Figure 1. Baseline Tenable compliance results for `[hostname]`, showing the result counts before the selected STIG remediations were applied.*
+*Figure 1. Baseline Tenable compliance results for `Ken-Win-11-STIGs`, showing the result counts before the selected STIG remediations were applied.*
 
 ### Baseline Results
 
 | Result | Count |
 | --- | ---: |
-| Passed | `[number]` |
-| Failed | `[number]` |
-| Manual review | `[number]` |
-| Not applicable | `[number, if reported]` |
-| Errors or incomplete checks | `[number, if reported]` |
+| Passed | `100` |
+| Failed | `151` |
+| Warning| `12` |
+| Total| `263` |
 
 📄 **Baseline report:** [View the full Tenable baseline report](https://github.com/kent28808/windows-11-disa-stig-remediations/blob/main/assets/Win11-STIG-initialscan.pdf)
 
@@ -126,7 +122,6 @@ The following conditions were kept consistent between the baseline and follow-up
 - Successful authenticated/credentialed scan status
 - No unrelated configuration changes during the comparison period
 
-
 ---
 
 ## Phase 2: Individual STIG Remediations
@@ -135,18 +130,16 @@ The following conditions were kept consistent between the baseline and follow-up
 
 | # | STIG ID | Official Rule Title | Severity | Before | After | Script |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-01.ps1) |
-| 2 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-02.ps1) |
-| 3 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-03.ps1) |
-| 4 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-04.ps1) |
-| 5 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-05.ps1) |
-| 6 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-06.ps1) |
-| 7 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-07.ps1) |
-| 8 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-08.ps1) |
-| 9 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-09.ps1) |
-| 10 | `[WN11-XX-000000]` | `[Official title]` | `[CAT I/II/III]` | `Fail` | `[Pass/Manual]` | [View script](scripts/STIG-10.ps1) |
-
-<!-- Rename each script and link to its actual STIG ID before publishing. -->
+| 1 | `WN11-AU-000500` | The Application event log size must be configured to 32768 KB or greater. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-AU-000500.ps1) |
+| 2 | `WN11-AU-000050` | The system must be configured to audit Detailed Tracking - Process Creation successes. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-AU-000050.ps1) |
+| 3 | `WN11-CC-000066` | Command line data must be included in process creation events. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000066.ps1) |
+| 4 | `WN11-CC-000326` | PowerShell script block logging must be enabled on Windows 11. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000326.ps1) |
+| 5 | `WN11-CC-000315` | The Windows Installer feature "Always install with elevated privileges" must be disabled. | `CAT I` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000315.ps1) |
+| 6 | `WN11-CC-000180` | Autoplay must be turned off for non-volume devices. | `CAT I` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000180.ps1) |
+| 7 | `WN11-CC-000252` | Windows 11 must be configured to disable Windows Game Recording and Broadcasting. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000252.ps1) |
+| 8 | `WN11-CC-000197` | Microsoft consumer experiences must be turned off. | `CAT III` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000197.ps1) |
+| 9 | `WN11-CC-000010` | The display of slide shows on the lock screen must be disabled. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000010.ps1) |
+| 10 | `WN11-CC-000330` | The Windows Remote Management (WinRM) client must not use Basic authentication. | `CAT I` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000330.ps1) |
 
 <a id="stig-01"></a>
 
