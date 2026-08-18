@@ -130,16 +130,16 @@ The following conditions were kept consistent between the baseline and follow-up
 
 | # | STIG ID | Official Rule Title | Severity | Before | After | Script |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `WN11-AU-000500` | The Application event log size must be configured to 32768 KB or greater. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-AU-000500.ps1) |
-| 2 | `WN11-AU-000050` | The system must be configured to audit Detailed Tracking - Process Creation successes. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-AU-000050.ps1) |
-| 3 | `WN11-CC-000066` | Command line data must be included in process creation events. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000066.ps1) |
-| 4 | `WN11-CC-000326` | PowerShell script block logging must be enabled on Windows 11. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000326.ps1) |
-| 5 | `WN11-CC-000315` | The Windows Installer feature "Always install with elevated privileges" must be disabled. | `CAT I` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000315.ps1) |
-| 6 | `WN11-CC-000180` | Autoplay must be turned off for non-volume devices. | `CAT I` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000180.ps1) |
-| 7 | `WN11-CC-000252` | Windows 11 must be configured to disable Windows Game Recording and Broadcasting. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000252.ps1) |
-| 8 | `WN11-CC-000197` | Microsoft consumer experiences must be turned off. | `CAT III` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000197.ps1) |
-| 9 | `WN11-CC-000010` | The display of slide shows on the lock screen must be disabled. | `CAT II` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000010.ps1) |
-| 10 | `WN11-CC-000330` | The Windows Remote Management (WinRM) client must not use Basic authentication. | `CAT I` | `Failed` | `Pending` | [View script](scripts/WN11-CC-000330.ps1) |
+| 1 | `WN11-AU-000500` | The Application event log size must be configured to 32768 KB or greater. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-AU-000500.ps1) |
+| 2 | `WN11-AU-000050` | The system must be configured to audit Detailed Tracking - Process Creation successes. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-AU-000050.ps1) |
+| 3 | `WN11-CC-000066` | Command line data must be included in process creation events. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000066.ps1) |
+| 4 | `WN11-CC-000326` | PowerShell script block logging must be enabled on Windows 11. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000326.ps1) |
+| 5 | `WN11-CC-000315` | The Windows Installer feature "Always install with elevated privileges" must be disabled. | `CAT I` | `Failed` | `Pending` | [View script](assets/WN11-CC-000315.ps1) |
+| 6 | `WN11-CC-000180` | Autoplay must be turned off for non-volume devices. | `CAT I` | `Failed` | `Pending` | [View script](assets/WN11-CC-000180.ps1) |
+| 7 | `WN11-CC-000252` | Windows 11 must be configured to disable Windows Game Recording and Broadcasting. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000252.ps1) |
+| 8 | `WN11-CC-000197` | Microsoft consumer experiences must be turned off. | `CAT III` | `Failed` | `Pending` | [View script](assets/WN11-CC-000197.ps1) |
+| 9 | `WN11-CC-000010` | The display of slide shows on the lock screen must be disabled. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000010.ps1) |
+| 10 | `WN11-CC-000330` | The Windows Remote Management (WinRM) client must not use Basic authentication. | `CAT I` | `Failed` | `Pending` | [View script](assets/WN11-CC-000330.ps1) |
 
 <a id="stig-01"></a>
 
