@@ -143,7 +143,7 @@ The following conditions were kept consistent between the baseline and follow-up
 
 <a id="stig-01"></a>
 
-### STIG 01 — `WN11-AU-000500`: Application Event Log Size
+### STIG 01-`WN11-AU-000500`: Application Event Log Size
 
 | Field | Value |
 | --- | --- |
@@ -198,7 +198,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-02"></a>
 
-### STIG 02 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 02-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -246,7 +246,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-03"></a>
 
-### STIG 03 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 03-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -293,7 +293,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-04"></a>
 
-### STIG 04 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 04-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -340,7 +340,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-05"></a>
 
-### STIG 05 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 05-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -387,7 +387,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-06"></a>
 
-### STIG 06 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 06-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -434,7 +434,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-07"></a>
 
-### STIG 07 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 07-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -482,7 +482,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-08"></a>
 
-### STIG 08 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 08-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -529,7 +529,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-09"></a>
 
-### STIG 09 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 09-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
@@ -576,7 +576,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 <a id="stig-10"></a>
 
-### STIG 10 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 10-`[STIG-ID]`: `[Official Rule Title]`
 
 | Field | Value |
 | --- | --- |
