@@ -143,56 +143,56 @@ The following conditions were kept consistent between the baseline and follow-up
 
 <a id="stig-01"></a>
 
-### STIG 01 — `[STIG-ID]`: `[Official Rule Title]`
+### STIG 01 — `WN11-AU-000500`: Application Event Log Size
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| Vulnerability ID | `V-253337` |
+| Severity | `CAT II` |
+| SRG / CCI | `SRG-OS-000341-GPOS-00132` / `CCI-001849` |
+| Validation | Registry |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** Configure the Application event log maximum size to at least `32,768 KB` (`32 MB`).
 
-**Security rationale:** `[Explain the security risk addressed by this setting in one or two sentences.]`
+**Security rationale:** An undersized event log may overwrite audit records too quickly, reducing the evidence available for security investigations.
 
 #### Before Remediation
 
-**Check performed:**
-
 ```powershell
-# Enter the PowerShell command or validation procedure used to test the setting.
+reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v MaxSize
 ```
 
-**Observed state:** `[Record the actual non-compliant value, output, or condition.]`
+**Observed:** `MaxSize` was missing or did not meet the required minimum of `32,768 KB`.
 
-![Non-compliant state for STIG 01 before remediation](assets/STIG-01-before.png)
+![STIG 01 before remediation](assets/STIG-01-before.png)
 
-*Figure 2. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant value or state]`.*
+*Figure 2. Pre-remediation validation showing that `MaxSize` did not meet the required minimum.*
 
 #### Remediation
 
-The PowerShell script `[briefly describe what it changes]` in accordance with the applicable STIG fix guidance.
+The script creates the required registry path and configures `MaxSize` as a `REG_DWORD` with a value of `32768`.
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-01.ps1)
+📄 **Script:** [View STIG-01.ps1](scripts/STIG-01.ps1)
 
 ```powershell
-# Optional: show the most important remediation command or how to run the script.
+.\scripts\STIG-01.ps1
 ```
 
 #### Verification
 
-**Check repeated:** `[State that the same check procedure was rerun.]`
+The registry check was repeated after running the remediation script.
 
-**Observed state:** `[Record the compliant value, output, or condition.]`
+```powershell
+reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v MaxSize
+```
 
-![Compliant state for STIG 01 after remediation](assets/STIG-01-after.png)
+**Observed:** `MaxSize` returned `REG_DWORD 0x8000`, equivalent to `32,768 KB`.
 
-*Figure 3. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant value or state]`.*
+![STIG 01 after remediation](assets/STIG-01-after.png)
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+*Figure 3. Post-remediation validation confirming a compliant Application event log size.*
+
+**Final result:** `Pass`
 
 ---
 
