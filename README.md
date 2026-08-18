@@ -208,414 +208,457 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 **Final result:** `Pass`
 
+**Reference:** [WN11-AU-000500 — Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-AU-000500/)
+
 ---
 
 <a id="stig-02"></a>
 
-### STIG 02-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 02 - `WN11-AU-000050`: Audit Process Creation Successes
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-AU-000050` |
+| Vulnerability ID | `V-253312` |
+| Severity | `CAT II` |
+| SRG ID | `SRG-OS-000064-GPOS-00033` |
+| CCI | `CCI-000172`, `CCI-001814`, `CCI-003938` |
+| Validation method | `Audit policy command` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** The Detailed Tracking - Process Creation audit subcategory must record successful process-creation events.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Process-creation auditing provides evidence of programs executed on the system and supports incident detection, investigation, and forensic analysis.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+auditpol /get /subcategory:"Process Creation"
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit reported `No Auditing`, so successful process creation events were not being audited.
 
-![Non-compliant state for STIG 02 before remediation](assets/STIG-02-before.png)
+![Process Creation auditing disabled before remediation](assets/STIG-02-before.png)
 
-*Figure 4. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 4. Pre-remediation validation for `WN11-AU-000050`, showing that Process Creation success auditing was not enabled.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Enabled success auditing for the Process Creation subcategory.
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-02.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-AU-000050.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same `auditpol` command. The required output must show `Success` for Process Creation.
 
-![Compliant state for STIG 02 after remediation](assets/STIG-02-after.png)
+![Process Creation success auditing enabled after remediation](assets/STIG-02-after.png)
 
-*Figure 5. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 5. Post-remediation validation for `WN11-AU-000050`, confirming that Process Creation success auditing is enabled.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
 
+**Reference:** [WN11-AU-000050 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-AU-000050/)
 
 ---
 
 <a id="stig-03"></a>
 
-### STIG 03-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 03 - `WN11-CC-000066`: Include Command-Line Data in Process Creation Events
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000066` |
+| Vulnerability ID | `V-253367` |
+| Severity | `CAT II` |
+| SRG ID | `SRG-OS-000042-GPOS-00020` |
+| CCI | `CCI-000135` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** Windows must include command-line information in process creation audit events.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Command-line details provide additional context about how a process was started, improving the detection and investigation of suspicious or malicious activity.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit' `
+    -Name 'ProcessCreationIncludeCmdLine_Enabled'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 03 before remediation](assets/STIG-03-before.png)
+![Command-line process auditing not configured before remediation](assets/STIG-03-before.png)
 
-*Figure 6. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 6. Pre-remediation validation for `WN11-CC-000066`, showing that `ProcessCreationIncludeCmdLine_Enabled` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `ProcessCreationIncludeCmdLine_Enabled` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-03.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000066.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `ProcessCreationIncludeCmdLine_Enabled = 1`.
 
-![Compliant state for STIG 03 after remediation](assets/STIG-03-after.png)
+![Command-line process auditing enabled after remediation](assets/STIG-03-after.png)
 
-*Figure 7. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 7. Post-remediation validation for `WN11-CC-000066`, confirming `ProcessCreationIncludeCmdLine_Enabled = 1`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000066 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000066/)
 
 ---
 
 <a id="stig-04"></a>
 
-### STIG 04-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 04 - `WN11-CC-000326`: Enable PowerShell Script Block Logging
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000326` |
+| Vulnerability ID | `V-253414` |
+| Severity | `CAT II` |
+| SRG ID | `SRG-OS-000042-GPOS-00020` |
+| CCI | `CCI-000135` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** PowerShell Script Block Logging must be enabled.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Script block logging records the content processed by PowerShell, providing valuable evidence for detecting and investigating malicious commands and scripts.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging' `
+    -Name 'EnableScriptBlockLogging'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 04 before remediation](assets/STIG-04-before.png)
+![PowerShell Script Block Logging not configured before remediation](assets/STIG-04-before.png)
 
-*Figure 8. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 8. Pre-remediation validation for `WN11-CC-000326`, showing that `EnableScriptBlockLogging` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `EnableScriptBlockLogging` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-04.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000326.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `EnableScriptBlockLogging = 1`.
 
-![Compliant state for STIG 04 after remediation](assets/STIG-04-after.png)
+![PowerShell Script Block Logging enabled after remediation](assets/STIG-04-after.png)
 
-*Figure 9. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 9. Post-remediation validation for `WN11-CC-000326`, confirming `EnableScriptBlockLogging = 1`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000326 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000326/)
 
 ---
 
 <a id="stig-05"></a>
 
-### STIG 05-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 05 - `WN11-CC-000315`: Disable Always Install with Elevated Privileges
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000315` |
+| Vulnerability ID | `V-253411` |
+| Severity | `CAT I` |
+| SRG ID | `SRG-OS-000362-GPOS-00149` |
+| CCI | `CCI-003980`, `CCI-001812` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** The Windows Installer policy named **Always install with elevated privileges** must be disabled.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Allowing Windows Installer packages to run with elevated privileges could enable a standard user or malicious application to gain administrative control of the system.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer' `
+    -Name 'AlwaysInstallElevated'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 05 before remediation](assets/STIG-05-before.png)
+![AlwaysInstallElevated not configured before remediation](assets/STIG-05-before.png)
 
-*Figure 10. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 10. Pre-remediation validation for `WN11-CC-000315`, showing that `AlwaysInstallElevated` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `AlwaysInstallElevated` to `0` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-05.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000315.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `AlwaysInstallElevated = 0`.
 
-![Compliant state for STIG 05 after remediation](assets/STIG-05-after.png)
+![AlwaysInstallElevated disabled after remediation](assets/STIG-05-after.png)
 
-*Figure 11. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 11. Post-remediation validation for `WN11-CC-000315`, confirming `AlwaysInstallElevated = 0`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000315 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000315/)
 
 ---
 
 <a id="stig-06"></a>
 
-### STIG 06-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 06 - `WN11-CC-000180`: Disable Autoplay for Non-Volume Devices
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000180` |
+| Vulnerability ID | `V-253386` |
+| Severity | `CAT I` |
+| SRG ID | `SRG-OS-000368-GPOS-00154` |
+| CCI | `CCI-001764` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** Autoplay must be disabled for non-volume devices, including Media Transfer Protocol devices.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Automatically reading content from connected devices can cause malicious code to execute without deliberate user action.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
+    -Name 'NoAutoplayfornonVolume'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 06 before remediation](assets/STIG-06-before.png)
+![Autoplay for non-volume devices not disabled before remediation](assets/STIG-06-before.png)
 
-*Figure 12. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 12. Pre-remediation validation for `WN11-CC-000180`, showing that `NoAutoplayfornonVolume` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `NoAutoplayfornonVolume` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-06.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000180.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `NoAutoplayfornonVolume = 1`.
 
-![Compliant state for STIG 06 after remediation](assets/STIG-06-after.png)
+![Autoplay for non-volume devices disabled after remediation](assets/STIG-06-after.png)
 
-*Figure 13. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 13. Post-remediation validation for `WN11-CC-000180`, confirming `NoAutoplayfornonVolume = 1`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000180 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000180/)
 
 ---
 
 <a id="stig-07"></a>
 
-### STIG 07-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 07 - `WN11-CC-000252`: Disable Windows Game Recording and Broadcasting
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000252` |
+| Vulnerability ID | `V-253399` |
+| Severity | `CAT II` |
+| SRG ID | `SRG-OS-000095-GPOS-00049` |
+| CCI | `CCI-000381` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** Windows Game Recording and Broadcasting must be disabled. This requirement is not applicable to Windows 11 LTSC.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Game recording features could capture content from other applications and unintentionally expose sensitive information.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR' `
+    -Name 'AllowGameDVR'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 07 before remediation](assets/STIG-07-before.png)
+![Windows Game Recording not disabled before remediation](assets/STIG-07-before.png)
 
-*Figure 14. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 14. Pre-remediation validation for `WN11-CC-000252`, showing that `AllowGameDVR` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `AllowGameDVR` to `0` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-07.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000252.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `AllowGameDVR = 0`.
 
-![Compliant state for STIG 07 after remediation](assets/STIG-07-after.png)
+![Windows Game Recording disabled after remediation](assets/STIG-07-after.png)
 
-*Figure 15. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 15. Post-remediation validation for `WN11-CC-000252`, confirming `AllowGameDVR = 0`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
 
+**Reference:** [WN11-CC-000252 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000252/)
 
 ---
 
 <a id="stig-08"></a>
 
-### STIG 08-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 08 - `WN11-CC-000197`: Disable Microsoft Consumer Experiences
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000197` |
+| Vulnerability ID | `V-253390` |
+| Severity | `CAT III` |
+| SRG ID | `SRG-OS-000095-GPOS-00049` |
+| CCI | `CCI-000381` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** Microsoft consumer experiences must be turned off.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Disabling consumer experiences helps prevent unwanted suggestions, notifications, and installation of applications that are not controlled by the organization.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' `
+    -Name 'DisableWindowsConsumerFeatures'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 08 before remediation](assets/STIG-08-before.png)
+![Microsoft consumer experiences not disabled before remediation](assets/STIG-08-before.png)
 
-*Figure 16. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 16. Pre-remediation validation for `WN11-CC-000197`, showing that `DisableWindowsConsumerFeatures` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `DisableWindowsConsumerFeatures` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-08.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000197.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `DisableWindowsConsumerFeatures = 1`.
 
-![Compliant state for STIG 08 after remediation](assets/STIG-08-after.png)
+![Microsoft consumer experiences disabled after remediation](assets/STIG-08-after.png)
 
-*Figure 17. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 17. Post-remediation validation for `WN11-CC-000197`, confirming `DisableWindowsConsumerFeatures = 1`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000197 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000197/)
 
 ---
 
 <a id="stig-09"></a>
 
-### STIG 09-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 09 - `WN11-CC-000010`: Disable Lock-Screen Slide Shows
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000010` |
+| Vulnerability ID | `V-253352` |
+| Severity | `CAT II` |
+| SRG ID | `SRG-OS-000095-GPOS-00049` |
+| CCI | `CCI-000381` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** The display of slide shows on the Windows lock screen must be disabled.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Lock-screen slide shows could expose sensitive images or information to people who have not authenticated to the system.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization' `
+    -Name 'NoLockScreenSlideshow'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 09 before remediation](assets/STIG-09-before.png)
+![Lock-screen slide shows not disabled before remediation](assets/STIG-09-before.png)
 
-*Figure 18. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 18. Pre-remediation validation for `WN11-CC-000010`, showing that `NoLockScreenSlideshow` was not configured.*
 
 #### Remediation
 
-`[Describe the configuration change.]`
+Created the required registry path if necessary and set `NoLockScreenSlideshow` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-09.ps1)
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000010.ps1)
 
 #### Verification
 
-**Observed state:** `[Compliant value, output, or condition.]`
+Repeat the same registry query. The required compliant value is `NoLockScreenSlideshow = 1`.
 
-![Compliant state for STIG 09 after remediation](assets/STIG-09-after.png)
+![Lock-screen slide shows disabled after remediation](assets/STIG-09-after.png)
 
-*Figure 19. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
+*Figure 19. Post-remediation validation for `WN11-CC-000010`, confirming `NoLockScreenSlideshow = 1`.*
 
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000010 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000010/)
 
 ---
 
 <a id="stig-10"></a>
 
-### STIG 10-`[STIG-ID]`: `[Official Rule Title]`
+### STIG 10 - `WN11-CC-000330`: Disable Basic Authentication for the WinRM Client
 
 | Field | Value |
 | --- | --- |
-| STIG ID | `[WN11-XX-000000]` |
-| Vulnerability ID | `[V-######]` |
-| Severity | `[CAT I / CAT II / CAT III]` |
-| SRG ID | `[SRG-OS-######-GPOS-#####]` |
-| CCI | `[CCI-######]` |
-| Validation method | `[Registry / command / policy / service / manual]` |
+| STIG ID | `WN11-CC-000330` |
+| Vulnerability ID | `V-253416` |
+| Severity | `CAT I` |
+| SRG ID | `SRG-OS-000125-GPOS-00065` |
+| CCI | `CCI-000877` |
+| Validation method | `Registry / policy` |
 
-**Requirement:** `[Concise description of the required configuration.]`
+**Requirement:** The Windows Remote Management client must not use Basic authentication.
 
-**Security rationale:** `[Explain the security risk addressed by this setting.]`
+**Security rationale:** Basic authentication can expose easily decoded credentials, increasing the risk of credential theft and unauthorized system access.
 
 #### Before Remediation
 
 ```powershell
-# Enter the validation command or procedure.
+Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client' `
+    -Name 'AllowBasic'
 ```
 
-**Observed state:** `[Non-compliant value, output, or condition.]`
+**Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Non-compliant state for STIG 10 before remediation](assets/STIG-10-before.png)
+![WinRM client Basic authentication not disabled before remediation](assets/STIG-10-before.png)
 
-*Figure 20. Pre-remediation validation for `[STIG-ID]`, showing `[specific non-compliant state]`.*
+*Figure 20. Pre-remediation validation for `WN11-CC-000330`, showing that `AllowBasic` was not configured.*
+
+#### Remediation
+
+Created the required registry path if necessary and set `AllowBasic` to `0` (`REG_DWORD`).
+
+📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000330.ps1)
+
+#### Verification
+
+Repeat the same registry query. The required compliant value is `AllowBasic = 0`.
+
+![WinRM client Basic authentication disabled after remediation](assets/STIG-10-after.png)
+
+*Figure 21. Post-remediation validation for `WN11-CC-000330`, confirming `AllowBasic = 0`.*
+
+**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+
+**Reference:** [WN11-CC-000330 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000330/)
+
 
 #### Remediation
 
