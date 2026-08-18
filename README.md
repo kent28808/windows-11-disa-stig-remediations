@@ -164,7 +164,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 **Observed:** `MaxSize` was missing or did not meet the required minimum of `32,768 KB`.
 
-![STIG 01 before remediation](assets/STIG-01-before.png)
+<img width="1021" height="137" alt="before" src="https://github.com/user-attachments/assets/afbccc9b-600a-498a-b755-2643b559b278" />
 
 *Figure 2. Pre-remediation validation showing that `MaxSize` did not meet the required minimum.*
 
@@ -172,10 +172,24 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 The script creates the required registry path and configures `MaxSize` as a `REG_DWORD` with a value of `32768`.
 
-📄 **Script:** [View STIG-01.ps1](scripts/STIG-01.ps1)
+📄 **Script:** [View STIG-01.ps1](/assets/WN11-AU-000500.ps1)
 
 ```powershell
-.\scripts\STIG-01.ps1
+# Define the registry path and value
+$registryPath = "HKLM:\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application"
+$valueName = "MaxSize"
+$valueData = 32768  # 0x00008000 in hexadecimal
+
+# Check if the registry path exists, if not create it
+if (-not (Test-Path $registryPath)) {
+    New-Item -Path $registryPath -Force
+}
+
+# Set the MaxSize value
+Set-ItemProperty -Path $registryPath -Name $valueName -Value $valueData -Type DWord
+
+# Output success message
+Write-Host "Registry value '$valueName' set to '$valueData' at '$registryPath'."
 ```
 
 #### Verification
@@ -188,7 +202,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 **Observed:** `MaxSize` returned `REG_DWORD 0x8000`, equivalent to `32,768 KB`.
 
-![STIG 01 after remediation](assets/STIG-01-after.png)
+<img width="1046" height="125" alt="after" src="https://github.com/user-attachments/assets/84003417-68f4-401a-8156-3ebb037c5b4d" />
 
 *Figure 3. Post-remediation validation confirming a compliant Application event log size.*
 
