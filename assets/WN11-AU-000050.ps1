@@ -12,7 +12,7 @@
     CVEs            : N/A
     Plugin IDs      : N/A
     STIG-ID         : WN11-AU-00050
-    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-AU-000500/
+    Documentation   : https://stigaview.com/products/win11/v2r7/WN11-AU-00050/
 
 .TESTED ON
     Date(s) Tested  : 
@@ -23,5 +23,5 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\WN10-AU-000500.ps1 
+    PS C:\> .\WN10-AU-00050.ps1 
 #>
