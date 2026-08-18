@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    This PowerShell script ensures that the maximum size of the Windows Application event log is at least 32768 KB (32 MB).
+    This PowerShell script remediates WN11-CC-000066 by including command-line data in process creation events.
 
 .NOTES
     Author          : Ken T.
