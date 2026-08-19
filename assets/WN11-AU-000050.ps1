@@ -23,7 +23,7 @@
 .USAGE
     Put any usage instructions here.
     Example syntax:
-    PS C:\> .\WN10-AU-000050.ps1 
+    PS C:\> .\WN11-AU-000050.ps1 
 #>
 
 $ErrorActionPreference = 'Stop'
