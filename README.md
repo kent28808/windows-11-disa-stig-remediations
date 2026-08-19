@@ -906,6 +906,7 @@ The baseline and follow-up assessments used the same target, credentials, scan c
 - No selected STIG requirement remained failed or required manual validation after remediation.
 - None of the 10 selected requirements were classified as not applicable to the Windows 11 Pro VM. The Windows 11 LTSC exception for `WN11-CC-000252` did not apply to this system.
 - The detailed Host Audit report identified the target by its scanned asset address, `10.3.0.33`, rather than by the Azure VM display name.
+- The results are specific to the V2R7 audit benchmark used for both assessments. A newer STIG release may contain revised, removed, or additional requirements.
 - This project addressed 10 selected requirements from the full Windows 11 STIG V2R7 benchmark. Other failed or warning results in the full compliance assessment remained outside the scope of this remediation exercise.
 - The results are specific to the V2R7 audit benchmark used for both assessments. A newer STIG release may contain revised, removed, or additional requirements.
 - Registry and audit-policy checks confirmed the required local settings, while the follow-up Tenable audit provided independent scanner validation.
