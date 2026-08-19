@@ -60,9 +60,11 @@ A credentialed Tenable compliance audit was performed before and after remediati
 | Deployment platform | `Azure` |
 | Administrative access | `Local administrator` |
 | Remediation tool | `Windows PowerShell 5.1.26100.9168` |
-| Compliance scanner | `Tenable Nessus 10.12.3` |
-| Scan template | `Advanced Network Scan/Win11-STIG-Implementation-KenT` |
-| Audit file or benchmark | `DISA_STIG_Microsoft_Windows_11_v2r7` |
+| Tenable platform | `Tenable Vulnerability Management` |
+| Scanner engine | `Nessus 10.12.3` |
+| Scan template | `Advanced Network Scan` |
+| Scan name | `Win11-STIG-Implementation-KenT` |
+| Audit file | `DISA_STIG_Microsoft_Windows_11_v2r7.audit` |
 | DISA STIG release used | `Microsoft Windows 11 STIG, Version 2, Release 7 (V2R7)` |
 | Baseline scan date | `08-16-2026` |
 | Follow-up scan date | `08-18-2026` |
