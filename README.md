@@ -98,7 +98,7 @@ The target was assessed with a credentialed Tenable compliance audit using **`DI
 
 <img width="1606" height="1206" alt="initialoverview" src="https://github.com/user-attachments/assets/84f0221e-9378-40ac-9be0-e74f2d96b111" />
 
-*Figure 1. Baseline Tenable compliance results for `Ken-Win-11-STIGs`, showing the result counts before the selected STIG remediations were applied.*
+*Figure 1.1 Baseline Tenable compliance results for `Ken-Win-11-STIGs`, showing the result counts before the selected STIG remediations were applied.*
 
 ### Baseline Results
 
