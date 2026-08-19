@@ -661,7 +661,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' 
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Microsoft consumer experiences not disabled before remediation](assets/STIG-08-before.png)
+<img width="1195" height="213" alt="before" src="https://github.com/user-attachments/assets/4d450e7a-2ade-4a35-ba74-3a58c8e193d2" />
 
 *Figure 16. Pre-remediation validation for `WN11-CC-000197`, showing that `DisableWindowsConsumerFeatures` was not configured.*
 
@@ -672,14 +672,31 @@ Created the required registry path if necessary and set `DisableWindowsConsumerF
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000197.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent'
+$name = 'DisableWindowsConsumerFeatures'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000197 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `DisableWindowsConsumerFeatures = 1`.
-
-![Microsoft consumer experiences disabled after remediation](assets/STIG-08-after.png)
+<img width="1197" height="302" alt="after" src="https://github.com/user-attachments/assets/3628260b-ec82-49e1-b4a7-315e5918165b" />
 
 *Figure 17. Post-remediation validation for `WN11-CC-000197`, confirming `DisableWindowsConsumerFeatures = 1`.*
 
