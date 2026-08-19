@@ -77,7 +77,7 @@ The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access
 
 <img width="1401" height="787" alt="netarch" src="https://github.com/user-attachments/assets/4a7b4bdd-5f98-4156-be6b-7e6dde8ba810" />
 
-*Figure 1. Shared Log(N) Pacific Azure cyber-range environment used for this lab. Project scope was limited to the `Ken-Win-11-STIGs` Windows 11 VM and the credentialed Tenable scan path used to assess and validate the 10 selected DISA STIG requirements; the other services and member resources shown were outside the project scope.*
+*Architecture overview. Shared Log(N) Pacific Azure cyber-range environment used for this lab. Project scope was limited to the `Ken-Win-11-STIGs` Windows 11 VM and the credentialed Tenable scan path used to assess and validate the 10 selected DISA STIG requirements; the other services and member resources shown were outside the project scope.*
 
 ---
 
@@ -100,7 +100,7 @@ The target was assessed with a credentialed Tenable compliance audit using **`DI
 
 <img width="1606" height="1206" alt="initialoverview" src="https://github.com/user-attachments/assets/84f0221e-9378-40ac-9be0-e74f2d96b111" />
 
-*Figure 1.1 Baseline Tenable compliance results for `Ken-Win-11-STIGs`, showing the result counts before the selected STIG remediations were applied.*
+*Figure 1. Baseline Tenable compliance results for `Ken-Win-11-STIGs`, showing the result counts before the selected STIG remediations were applied.*
 
 ### Baseline Results
 
@@ -346,6 +346,7 @@ Write-Host "$name = $value (REG_DWORD)"
 #### Verification
 
 <img width="1203" height="329" alt="after" src="https://github.com/user-attachments/assets/1b709fa4-3657-4df0-a8d2-876bcbaa84ae" />
+
 *Figure 7. Post-remediation validation for `WN11-CC-000066`, confirming `ProcessCreationIncludeCmdLine_Enabled = 1`.*
 
 **Final result:** `Passed`
@@ -907,10 +908,8 @@ The baseline and follow-up assessments used the same target, credentials, scan c
 - No selected STIG requirement remained failed or required manual validation after remediation.
 - None of the 10 selected requirements were classified as not applicable to the Windows 11 Pro VM. The Windows 11 LTSC exception for `WN11-CC-000252` did not apply to this system.
 - The detailed Host Audit report identified the target by its scanned asset address, `10.3.0.33`, rather than by the Azure VM display name.
-- The results are specific to the V2R7 audit benchmark used for both assessments. A newer STIG release may contain revised, removed, or additional requirements.
-- This project addressed 10 selected requirements from the full Windows 11 STIG V2R7 benchmark. Other failed or warning results in the full compliance assessment remained outside the scope of this remediation exercise.
-- The results are specific to the V2R7 audit benchmark used for both assessments. A newer STIG release may contain revised, removed, or additional requirements.
-- Registry and audit-policy checks confirmed the required local settings, while the follow-up Tenable audit provided independent scanner validation.
+- This lab used Windows 11 STIG V2R7 consistently for both assessments. V2R7 is now an archived release; the results demonstrate compliance with the 10 selected V2R7 requirements and should not be interpreted as validation against the latest Windows 11 STIG release.
+- Registry and audit-policy checks confirmed the required local settings, while the follow-up Tenable audit provided independent scanner validation.  
 - No risk exception or alternate disposition was required for the 10 selected requirements because all 10 passed the follow-up audit.
 - These results demonstrate successful remediation of the selected requirements; they do not establish that the entire Windows 11 VM is fully STIG-compliant.
 
