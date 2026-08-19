@@ -25,3 +25,24 @@
     Example syntax:
     PS C:\> .\WN11-CC-000197.ps1 
 #>
+
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent'
+$name = 'DisableWindowsConsumerFeatures'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000197 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
