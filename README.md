@@ -108,8 +108,8 @@ The target was assessed with a credentialed Tenable compliance audit using **`DI
 | --- | ---: |
 | Passed | `100` |
 | Failed | `151` |
-| Warning| `12` |
-| Total| `263` |
+| Warning | `12` |
+| Total | `263` |
 
 📄 **Baseline report:** [View the full Tenable baseline report](https://github.com/kent28808/windows-11-disa-stig-remediations/blob/main/assets/Win11-STIG-initialscan.pdf)
 
@@ -145,10 +145,11 @@ The following conditions were kept consistent between the baseline and follow-up
 
 <a id="stig-01"></a>
 
-### STIG 01-`WN11-AU-000500`: Application Event Log Size
+### STIG 01 - `WN11-AU-000500`: Application Event Log Size
 
 | Field | Value |
 | --- | --- |
+| STIG ID | `WN11-AU-000500` |
 | Vulnerability ID | `V-253337` |
 | Severity | `CAT II` |
 | SRG / CCI | `SRG-OS-000341-GPOS-00132` / `CCI-001849` |
@@ -164,11 +165,11 @@ The following conditions were kept consistent between the baseline and follow-up
 reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v MaxSize
 ```
 
-**Observed:** `MaxSize` was missing or did not meet the required minimum of `32,768 KB`.
+**Observed:** `MaxSize` was not configured.
 
 <img width="1021" height="137" alt="before" src="https://github.com/user-attachments/assets/afbccc9b-600a-498a-b755-2643b559b278" />
 
-*Figure 2. Pre-remediation validation showing that `MaxSize` did not meet the required minimum.*
+*Figure 2. Pre-remediation validation showing that `MaxSize` was not configured.*
 
 #### Remediation
 
@@ -946,9 +947,8 @@ The baseline and follow-up assessments used the same target, credentials, scan c
 ## References
 
 - [DISA STIGs Document Library](https://www.cyber.mil/stigs/downloads/)
-- [Windows 11 STIG — Latest Available Release](https://stigaview.com/products/win11/latest/)
-- [Windows 11 STIG V2R7 — Benchmark Used in This Lab](https://stigaview.com/products/win11/v2r7/)
-- [DISA Security Content Automation Protocol (SCAP) Benchmarks](https://www.cyber.mil/stigs/scap/)
+- [STIG-A-View — Latest Windows 11 STIG (Unofficial Rule Viewer)](https://stigaview.com/products/win11/latest/)
+- [STIG-A-View — Windows 11 STIG V2R7 (Unofficial Archived Rule Viewer)](https://stigaview.com/products/win11/v2r7/)
 - [Tenable Scan Templates and Policy Compliance Documentation](https://docs.tenable.com/nessus/Content/ScanAndPolicyTemplates.htm)
 - **Tenable audit file used:** `DISA_STIG_Microsoft_Windows_11_v2r7.audit`
 
