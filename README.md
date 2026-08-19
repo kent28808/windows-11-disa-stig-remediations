@@ -803,7 +803,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client' 
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![WinRM client Basic authentication not disabled before remediation](assets/STIG-10-before.png)
+<img width="1179" height="210" alt="before" src="https://github.com/user-attachments/assets/f78ec7dd-41db-4bd8-9f0d-678bc4c181cc" />
 
 *Figure 20. Pre-remediation validation for `WN11-CC-000330`, showing that `AllowBasic` was not configured.*
 
@@ -814,37 +814,37 @@ Created the required registry path if necessary and set `AllowBasic` to `0` (`RE
 📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000330.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client'
+$name = 'AllowBasic'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 0 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 0) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000330 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `AllowBasic = 0`.
-
-![WinRM client Basic authentication disabled after remediation](assets/STIG-10-after.png)
+<img width="1083" height="278" alt="after" src="https://github.com/user-attachments/assets/d4734ffe-2030-4d73-85e4-18658ca32943" />
 
 *Figure 21. Post-remediation validation for `WN11-CC-000330`, confirming `AllowBasic = 0`.*
 
 **Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
 
 **Reference:** [WN11-CC-000330 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000330/)
-
-
-#### Remediation
-
-`[Describe the configuration change.]`
-
-📄 **PowerShell script:** [View the remediation script](scripts/STIG-10.ps1)
-
-#### Verification
-
-**Observed state:** `[Compliant value, output, or condition.]`
-
-![Compliant state for STIG 10 after remediation](assets/STIG-10-after.png)
-
-*Figure 21. Post-remediation validation for `[STIG-ID]`, confirming `[specific compliant state]`.*
-
-**Final result:** `[Pass / Manual verification completed / Exception documented]`
 
 ---
 
