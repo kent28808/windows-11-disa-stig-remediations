@@ -307,7 +307,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Command-line process auditing not configured before remediation](assets/STIG-03-before.png)
+<img width="1095" height="309" alt="before" src="https://github.com/user-attachments/assets/f111976e-3bbe-430c-9e87-8e127276e660" />
 
 *Figure 6. Pre-remediation validation for `WN11-CC-000066`, showing that `ProcessCreationIncludeCmdLine_Enabled` was not configured.*
 
@@ -318,15 +318,31 @@ Created the required registry path if necessary and set `ProcessCreationIncludeC
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000066.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit'
+$name = 'ProcessCreationIncludeCmdLine_Enabled'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Host '[PASS] WN11-CC-000066 is compliant.' -ForegroundColor Green
+Write-Host "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `ProcessCreationIncludeCmdLine_Enabled = 1`.
-
-![Command-line process auditing enabled after remediation](assets/STIG-03-after.png)
-
+<img width="1203" height="329" alt="after" src="https://github.com/user-attachments/assets/1b709fa4-3657-4df0-a8d2-876bcbaa84ae" />
 *Figure 7. Post-remediation validation for `WN11-CC-000066`, confirming `ProcessCreationIncludeCmdLine_Enabled = 1`.*
 
 **Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
