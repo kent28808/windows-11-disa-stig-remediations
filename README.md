@@ -377,7 +377,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Scr
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![PowerShell Script Block Logging not configured before remediation](assets/STIG-04-before.png)
+<img width="1193" height="239" alt="before" src="https://github.com/user-attachments/assets/e64a1f6b-5ec2-44f7-a6fc-954d672c6ed9" />
 
 *Figure 8. Pre-remediation validation for `WN11-CC-000326`, showing that `EnableScriptBlockLogging` was not configured.*
 
@@ -388,14 +388,31 @@ Created the required registry path if necessary and set `EnableScriptBlockLoggin
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000326.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging'
+$name = 'EnableScriptBlockLogging'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000326 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `EnableScriptBlockLogging = 1`.
-
-![PowerShell Script Block Logging enabled after remediation](assets/STIG-04-after.png)
+<img width="1209" height="307" alt="after" src="https://github.com/user-attachments/assets/4d6c96e6-759c-489f-8797-f7bfeaaa49e3" />
 
 *Figure 9. Post-remediation validation for `WN11-CC-000326`, confirming `EnableScriptBlockLogging = 1`.*
 
