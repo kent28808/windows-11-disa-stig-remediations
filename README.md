@@ -271,13 +271,11 @@ if ($LASTEXITCODE -ne 0) {
 
 #### Verification
 
-Repeat the same `auditpol` command. The required output must show `Success` for Process Creation.
-
-![Process Creation success auditing enabled after remediation](assets/STIG-02-after.png)
+<img width="678" height="158" alt="after" src="https://github.com/user-attachments/assets/535f5f23-e680-4bbb-8cdc-f914433aebb1" />
 
 *Figure 5. Post-remediation validation for `WN11-AU-000050`, confirming that Process Creation success auditing is enabled.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Pass`
 
 **Reference:** [WN11-AU-000050 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-AU-000050/)
 
