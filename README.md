@@ -669,7 +669,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\CloudContent' 
 
 Created the required registry path if necessary and set `DisableWindowsConsumerFeatures` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000197.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000197.ps1)
 
 ```powershell
 $ErrorActionPreference = 'Stop'
@@ -740,7 +740,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalizatio
 
 Created the required registry path if necessary and set `NoLockScreenSlideshow` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000010.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000010.ps1)
 
 ```powershell
 Script
@@ -794,7 +794,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\WinRM\Client' 
 
 Created the required registry path if necessary and set `AllowBasic` to `0` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000330.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000330.ps1)
 
 ```powershell
 Script
