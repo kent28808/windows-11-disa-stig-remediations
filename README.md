@@ -590,7 +590,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR' `
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Windows Game Recording not disabled before remediation](assets/STIG-07-before.png)
+<img width="1187" height="216" alt="before" src="https://github.com/user-attachments/assets/21d25c37-3e5d-415d-abd7-825f794914ae" />
 
 *Figure 14. Pre-remediation validation for `WN11-CC-000252`, showing that `AllowGameDVR` was not configured.*
 
@@ -601,14 +601,31 @@ Created the required registry path if necessary and set `AllowGameDVR` to `0` (`
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000252.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR'
+$name = 'AllowGameDVR'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 0 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 0) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000252 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `AllowGameDVR = 0`.
-
-![Windows Game Recording disabled after remediation](assets/STIG-07-after.png)
+<img width="1038" height="282" alt="after" src="https://github.com/user-attachments/assets/4097cec6-0ffa-49e8-8768-ff3d014c556c" />
 
 *Figure 15. Post-remediation validation for `WN11-CC-000252`, confirming `AllowGameDVR = 0`.*
 
