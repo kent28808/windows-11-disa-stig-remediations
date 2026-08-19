@@ -172,7 +172,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 The script creates the required registry path and configures `MaxSize` as a `REG_DWORD` with a value of `32768`.
 
-📄 **Script:** [View STIG-01.ps1](/assets/WN11-AU-000500.ps1)
+📄 **Script:** [View the remediation script](assets/WN11-AU-000500.ps1)
 
 ```powershell
 # Define the registry path and value
@@ -315,7 +315,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
 
 Created the required registry path if necessary and set `ProcessCreationIncludeCmdLine_Enabled` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000066.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000066.ps1)
 
 ```powershell
 $ErrorActionPreference = 'Stop'
@@ -385,7 +385,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Scr
 
 Created the required registry path if necessary and set `EnableScriptBlockLogging` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000326.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000326.ps1)
 
 ```powershell
 $ErrorActionPreference = 'Stop'
@@ -891,12 +891,12 @@ The baseline and follow-up assessments used the same target, credentials, scan c
 
 | Result | Baseline | Follow-Up | Change |
 | --- | ---: | ---: | ---: |
-| Passed | `100` | `[final passed count]` | `[follow-up − 100]` |
-| Failed | `151` | `[final failed count]` | `[follow-up − 151]` |
-| Warning | `12` | `[final warning count]` | `[follow-up − 12]` |
-| **Total** | **`263`** | **`[final total]`** | **`[change]`** |
+| Passed | `100` | `111` | `+11` |
+| Failed | `151` | `140` | `-11` |
+| Warning | `12` | `12` | `0` |
+| **Total** | **`263`** | **`263`** | **`0`** |
 
-> The aggregate results describe the full V2R7 benchmark. Because this project remediated only 10 selected requirements, changes in the overall totals may include findings outside the project scope.
+> The aggregate result improved by 11 checks because the remediation for `WN11-AU-000050` also enabled `WN11-SO-000030`, the required advanced audit-policy prerequisite. The remaining 140 failed and 12 warning results were outside the scope of this project.
 
 
 ### Residual Findings and Limitations
