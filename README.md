@@ -65,7 +65,7 @@ A credentialed Tenable compliance audit was performed before and after remediati
 | Audit file or benchmark | `DISA_STIG_Microsoft_Windows_11_v2r7` |
 | DISA STIG release used | `Microsoft Windows 11 STIG, Version 2, Release 7 (V2R7)` |
 | Baseline scan date | `08-16-2026` |
-| Follow-up scan date | `[YYYY-MM-DD]` |
+| Follow-up scan date | `08-18-2026` |
 
 ---
 
