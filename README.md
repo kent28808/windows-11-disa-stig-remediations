@@ -130,16 +130,16 @@ The following conditions were kept consistent between the baseline and follow-up
 
 | # | STIG ID | Official Rule Title | Severity | Before | After | Script |
 | ---: | --- | --- | --- | --- | --- | --- |
-| 1 | `WN11-AU-000500` | The Application event log size must be configured to 32768 KB or greater. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-AU-000500.ps1) |
-| 2 | `WN11-AU-000050` | The system must be configured to audit Detailed Tracking - Process Creation successes. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-AU-000050.ps1) |
-| 3 | `WN11-CC-000066` | Command line data must be included in process creation events. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000066.ps1) |
-| 4 | `WN11-CC-000326` | PowerShell script block logging must be enabled on Windows 11. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000326.ps1) |
-| 5 | `WN11-CC-000315` | The Windows Installer feature "Always install with elevated privileges" must be disabled. | `CAT I` | `Failed` | `Pending` | [View script](assets/WN11-CC-000315.ps1) |
-| 6 | `WN11-CC-000180` | Autoplay must be turned off for non-volume devices. | `CAT I` | `Failed` | `Pending` | [View script](assets/WN11-CC-000180.ps1) |
-| 7 | `WN11-CC-000252` | Windows 11 must be configured to disable Windows Game Recording and Broadcasting. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000252.ps1) |
-| 8 | `WN11-CC-000197` | Microsoft consumer experiences must be turned off. | `CAT III` | `Failed` | `Pending` | [View script](assets/WN11-CC-000197.ps1) |
-| 9 | `WN11-CC-000010` | The display of slide shows on the lock screen must be disabled. | `CAT II` | `Failed` | `Pending` | [View script](assets/WN11-CC-000010.ps1) |
-| 10 | `WN11-CC-000330` | The Windows Remote Management (WinRM) client must not use Basic authentication. | `CAT I` | `Failed` | `Pending` | [View script](assets/WN11-CC-000330.ps1) |
+| 1 | `WN11-AU-000500` | The Application event log size must be configured to 32768 KB or greater. | `CAT II` | `Failed` | `Passed` | [View script](assets/WN11-AU-000500.ps1) |
+| 2 | `WN11-AU-000050` | The system must be configured to audit Detailed Tracking - Process Creation successes. | `CAT II` | `Failed` | `Passed` | [View script](assets/WN11-AU-000050.ps1) |
+| 3 | `WN11-CC-000066` | Command line data must be included in process creation events. | `CAT II` | `Failed` | `Passed` | [View script](assets/WN11-CC-000066.ps1) |
+| 4 | `WN11-CC-000326` | PowerShell script block logging must be enabled on Windows 11. | `CAT II` | `Failed` | `Passed` | [View script](assets/WN11-CC-000326.ps1) |
+| 5 | `WN11-CC-000315` | The Windows Installer feature "Always install with elevated privileges" must be disabled. | `CAT I` | `Failed` | `Passed` | [View script](assets/WN11-CC-000315.ps1) |
+| 6 | `WN11-CC-000180` | Autoplay must be turned off for non-volume devices. | `CAT I` | `Failed` | `Passed` | [View script](assets/WN11-CC-000180.ps1) |
+| 7 | `WN11-CC-000252` | Windows 11 must be configured to disable Windows Game Recording and Broadcasting. | `CAT II` | `Failed` | `Passed` | [View script](assets/WN11-CC-000252.ps1) |
+| 8 | `WN11-CC-000197` | Microsoft consumer experiences must be turned off. | `CAT III` | `Failed` | `Passed` | [View script](assets/WN11-CC-000197.ps1) |
+| 9 | `WN11-CC-000010` | The display of slide shows on the lock screen must be disabled. | `CAT II` | `Failed` | `Passed` | [View script](assets/WN11-CC-000010.ps1) |
+| 10 | `WN11-CC-000330` | The Windows Remote Management (WinRM) client must not use Basic authentication. | `CAT I` | `Failed` | `Passed` | [View script](assets/WN11-CC-000330.ps1) |
 
 <a id="stig-01"></a>
 
@@ -206,7 +206,7 @@ reg.exe query "HKLM\SOFTWARE\Policies\Microsoft\Windows\EventLog\Application" /v
 
 *Figure 3. Post-remediation validation confirming a compliant Application event log size.*
 
-**Final result:** `Pass`
+**Final result:** `Passed`
 
 **Reference:** [WN11-AU-000500 — Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-AU-000500/)
 
@@ -275,7 +275,7 @@ if ($LASTEXITCODE -ne 0) {
 
 *Figure 5. Post-remediation validation for `WN11-AU-000050`, confirming that Process Creation success auditing is enabled.*
 
-**Final result:** `Pass`
+**Final result:** `Passed`
 
 **Reference:** [WN11-AU-000050 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-AU-000050/)
 
@@ -345,7 +345,7 @@ Write-Host "$name = $value (REG_DWORD)"
 <img width="1203" height="329" alt="after" src="https://github.com/user-attachments/assets/1b709fa4-3657-4df0-a8d2-876bcbaa84ae" />
 *Figure 7. Post-remediation validation for `WN11-CC-000066`, confirming `ProcessCreationIncludeCmdLine_Enabled = 1`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000066 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000066/)
 
@@ -416,7 +416,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 9. Post-remediation validation for `WN11-CC-000326`, confirming `EnableScriptBlockLogging = 1`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000326 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000326/)
 
@@ -487,7 +487,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 11. Post-remediation validation for `WN11-CC-000315`, confirming `AlwaysInstallElevated = 0`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000315 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000315/)
 
@@ -558,7 +558,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 13. Post-remediation validation for `WN11-CC-000180`, confirming `NoAutoplayfornonVolume = 1`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000180 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000180/)
 
@@ -629,7 +629,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 15. Post-remediation validation for `WN11-CC-000252`, confirming `AllowGameDVR = 0`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000252 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000252/)
 
@@ -700,7 +700,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 17. Post-remediation validation for `WN11-CC-000197`, confirming `DisableWindowsConsumerFeatures = 1`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000197 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000197/)
 
@@ -771,7 +771,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 19. Post-remediation validation for `WN11-CC-000010`, confirming `NoLockScreenSlideshow = 1`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000010 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000010/)
 
@@ -842,7 +842,7 @@ Write-Output "$name = $value (REG_DWORD)"
 
 *Figure 21. Post-remediation validation for `WN11-CC-000330`, confirming `AllowBasic = 0`.*
 
-**Final result:** `Pending - confirm with PowerShell and the follow-up Tenable scan.`
+**Final result:** `Passed`
 
 **Reference:** [WN11-CC-000330 - Microsoft Windows 11 STIG V2R7](https://stigaview.com/products/win11/v2r7/WN11-CC-000330/)
 
@@ -852,30 +852,34 @@ Write-Output "$name = $value (REG_DWORD)"
 
 ### Follow-Up Tenable Audit
 
-After the 10 selected remediations were implemented and manually verified, the same credentialed Tenable compliance audit was rerun against the target.
+A credentialed post-remediation audit was performed using the same target, credentials, scan configuration, and Windows 11 STIG V2R7 benchmark as the baseline assessment. The results were filtered to the 10 STIG requirements implemented in this project.
 
-![Follow-up Tenable compliance results for the Windows 11 lab VM](assets/tenable-follow-up-summary.png)
+The follow-up audit confirmed that all 10 selected STIG requirements passed on the target system.
 
-*Figure 22. Follow-up Tenable compliance results for `[hostname]`, showing the result counts after the selected STIG remediations were applied.*
+<img width="1605" height="798" alt="results" src="https://github.com/user-attachments/assets/6b490961-35e3-42ea-9bc1-5c9145f4e0f8" />
 
-📄 **Follow-up report:** [View the full Tenable follow-up report](reports/tenable-follow-up-report.pdf)
+*Figure 22. Filtered post-remediation Tenable results confirming that all 10 selected Windows 11 STIG requirements passed.*
+
+📄 **Detailed validation report:** [View the full Tenable follow-up report](assets/HostAuditsReport_08.18.2026.pdf)
 
 ### Per-STIG Tenable Correlation
 
-| # | STIG ID | Baseline Result | Follow-Up Result | Evidence or Notes |
+| # | STIG ID | Baseline | Local Check | Follow-Up Tenable |
 | ---: | --- | --- | --- | --- |
-| 1 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 2 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 3 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 4 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 5 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 6 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 7 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 8 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 9 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
-| 10 | `[STIG ID]` | `Failed` | `[Passed/Manual/etc.]` | `[Finding title, plugin ID, or report page]` |
+| 1 | `WN11-AU-000500` | Failed | Passed | **Passed** |
+| 2 | `WN11-AU-000050` | Failed | Passed | **Passed** |
+| 3 | `WN11-CC-000066` | Failed | Passed | **Passed** |
+| 4 | `WN11-CC-000326` | Failed | Passed | **Passed** |
+| 5 | `WN11-CC-000315` | Failed | Passed | **Passed** |
+| 6 | `WN11-CC-000180` | Failed | Passed | **Passed** |
+| 7 | `WN11-CC-000252` | Failed | Passed | **Passed** |
+| 8 | `WN11-CC-000197` | Failed | Passed | **Passed** |
+| 9 | `WN11-CC-000010` | Failed | Passed | **Passed** |
+| 10 | `WN11-CC-000330` | Failed | Passed | **Passed** |
 
-> Do not infer that all 10 remediations passed solely because the aggregate failure count decreased by 10. Confirm the follow-up result for each selected STIG ID.
+**Final result:** All **10 of 10 selected STIG requirements passed** the post-remediation Tenable audit.
+
+📄 **Complete final scan report:** [View the Tenable final scan report](assets/Win11-STIG-finalscan.pdf)
 
 ---
 
@@ -883,61 +887,67 @@ After the 10 selected remediations were implemented and manually verified, the s
 
 ### Overall Compliance Results
 
+The baseline and follow-up assessments used the same target, credentials, scan configuration, and Windows 11 STIG V2R7 benchmark.
+
 | Result | Baseline | Follow-Up | Change |
 | --- | ---: | ---: | ---: |
-| Passed | `[number]` | `[number]` | `[+/- number]` |
-| Failed | `[number]` | `[number]` | `[+/- number]` |
-| Manual review | `[number]` | `[number]` | `[+/- number]` |
-| Not applicable | `[number]` | `[number]` | `[+/- number]` |
-| Errors or incomplete checks | `[number]` | `[number]` | `[+/- number]` |
+| Passed | `100` | `[final passed count]` | `[follow-up − 100]` |
+| Failed | `151` | `[final failed count]` | `[follow-up − 151]` |
+| Warning | `12` | `[final warning count]` | `[follow-up − 12]` |
+| **Total** | **`263`** | **`[final total]`** | **`[change]`** |
 
-### Selected-Requirement Outcome
+> The aggregate results describe the full V2R7 benchmark. Because this project remediated only 10 selected requirements, changes in the overall totals may include findings outside the project scope.
 
-- Selected STIG requirements assessed: **10**
-- Confirmed failed before remediation: **`[number]`**
-- Confirmed passed after remediation: **`[number]`**
-- Requiring manual validation: **`[number]`**
-- Remaining failed or excepted: **`[number]`**
 
 ### Residual Findings and Limitations
 
-- `[Document any selected STIG that remained failed or required manual verification.]`
-- `[Document any requirements that were not applicable to the VM.]`
-- `[Document any scanner, credential, benchmark, or lab-environment limitation.]`
-- `[State the approved lab disposition for any unresolved item; do not claim an exception was approved unless it actually was.]`
+- No selected STIG requirement remained failed or required manual validation after remediation.
+- None of the 10 selected requirements were classified as not applicable to the Windows 11 Pro VM. The Windows 11 LTSC exception for `WN11-CC-000252` did not apply to this system.
+- The detailed Host Audit report identified the target by its scanned asset address, `10.3.0.33`, rather than by the Azure VM display name.
+- This project addressed 10 selected requirements from the full Windows 11 STIG V2R7 benchmark. Other failed or warning results in the full compliance assessment remained outside the scope of this remediation exercise.
+- The results are specific to the V2R7 audit benchmark used for both assessments. A newer STIG release may contain revised, removed, or additional requirements.
+- Registry and audit-policy checks confirmed the required local settings, while the follow-up Tenable audit provided independent scanner validation.
+- No risk exception or alternate disposition was required for the 10 selected requirements because all 10 passed the follow-up audit.
+- These results demonstrate successful remediation of the selected requirements; they do not establish that the entire Windows 11 VM is fully STIG-compliant.
 
 ---
 
-
 ## Skills Demonstrated
 
-- DISA STIG interpretation and configuration assessment
-- Windows 11 security hardening
-- PowerShell scripting and repeatable remediation
-- Windows registry, local policy, service, and security-setting validation
+- DISA Windows 11 STIG interpretation and control assessment
+- Windows 11 security configuration and hardening
+- Windows PowerShell 5.1 remediation scripting
+- Windows registry and advanced audit-policy administration
+- Repeatable and idempotent configuration changes
 - Credentialed Tenable compliance auditing
+- Tenable result filtering and per-STIG correlation
+- Baseline and post-remediation result comparison
 - Before-and-after evidence collection
-- Technical documentation and residual-risk reporting
-
+- Technical documentation, scope definition, and limitation reporting
 
 ---
 
 ## Lessons Learned
 
-- `[Describe what you learned about translating STIG check and fix text into a testable configuration change.]`
-- `[Describe one challenge involving Windows policy, registry paths, permissions, or scan behavior.]`
-- `[Explain how the follow-up evidence confirmed—or failed to confirm—the intended result.]`
-- `[Describe how you would scale the remediation through Group Policy, Intune, configuration management, or another enterprise control.]`
+- Each STIG check must be translated into a precise and testable configuration state, including the registry path, value name, data type, required value, or audit-policy setting.
+- A missing registry value is a finding when the STIG requires an explicit configuration, even when Windows may appear to use a secure default behavior.
+- PowerShell remediation scripts should create missing registry paths, configure the required value, and verify the resulting state instead of assuming that the command succeeded.
+- Advanced audit subcategories depend on the policy that forces subcategory settings to override legacy audit-policy categories.
+- Tenable may identify an asset by its scanned IP address rather than its operating-system or Azure VM name. The target therefore had to be correlated using `10.3.0.33`, the benchmark, and the individual STIG IDs.
+- Local PowerShell checks demonstrated that the intended values were configured, while the filtered follow-up Host Audit report independently confirmed that all 10 selected STIG requirements passed.
+- Aggregate compliance totals alone cannot prove that specific remediations succeeded. Each selected STIG ID must be individually correlated between the baseline and follow-up results.
+- In an enterprise environment, these settings could be deployed centrally through Group Policy, Microsoft Intune, PowerShell Desired State Configuration, or another configuration-management platform. Changes should be tested in a pilot group before broader deployment.
 
 ---
 
 ## References
 
 - [DISA STIGs Document Library](https://www.cyber.mil/stigs/downloads/)
-- [Windows 11 STIG Latest](https://www.cyber.mil/stigs/downloads/](https://stigaview.com/products/win11/latest/))
+- [Windows 11 STIG — Latest Available Release](https://stigaview.com/products/win11/latest/)
+- [Windows 11 STIG V2R7 — Benchmark Used in This Lab](https://stigaview.com/products/win11/v2r7/)
 - [DISA Security Content Automation Protocol (SCAP) Benchmarks](https://www.cyber.mil/stigs/scap/)
-- [Tenable Policy Compliance Auditing Documentation](https://docs.tenable.com/nessus/Content/ScanAndPolicyTemplates.htm)
-- `[Add the exact Windows 11 STIG release, audit-file page, or course/lab reference used.]`
+- [Tenable Scan Templates and Policy Compliance Documentation](https://docs.tenable.com/nessus/Content/ScanAndPolicyTemplates.htm)
+- **Tenable audit file used:** `DISA_STIG_Microsoft_Windows_11_v2r7.audit`
 
 ---
 
