@@ -25,3 +25,24 @@
     Example syntax:
     PS C:\> .\WN11-CC-000066.ps1 
 #>
+
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit'
+$name = 'ProcessCreationIncludeCmdLine_Enabled'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Host '[PASS] WN11-CC-000066 is compliant.' -ForegroundColor Green
+Write-Host "$name = $value (REG_DWORD)"
