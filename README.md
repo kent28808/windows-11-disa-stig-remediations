@@ -598,7 +598,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\GameDVR' `
 
 Created the required registry path if necessary and set `AllowGameDVR` to `0` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000252.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000252.ps1)
 
 ```powershell
 $ErrorActionPreference = 'Stop'
