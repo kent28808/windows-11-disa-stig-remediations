@@ -448,7 +448,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer' `
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![AlwaysInstallElevated not configured before remediation](assets/STIG-05-before.png)
+<img width="1192" height="217" alt="before" src="https://github.com/user-attachments/assets/65199192-b578-43c9-98e8-d5d2dede41f3" />
 
 *Figure 10. Pre-remediation validation for `WN11-CC-000315`, showing that `AlwaysInstallElevated` was not configured.*
 
@@ -459,14 +459,31 @@ Created the required registry path if necessary and set `AlwaysInstallElevated` 
 📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000315.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Installer'
+$name = 'AlwaysInstallElevated'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 0 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 0) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000315 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `AlwaysInstallElevated = 0`.
-
-![AlwaysInstallElevated disabled after remediation](assets/STIG-05-after.png)
+<img width="1135" height="296" alt="after" src="https://github.com/user-attachments/assets/1e03a69f-64d2-4db5-ae6e-175b9b13652d" />
 
 *Figure 11. Post-remediation validation for `WN11-CC-000315`, confirming `AlwaysInstallElevated = 0`.*
 
