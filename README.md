@@ -519,7 +519,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Autoplay for non-volume devices not disabled before remediation](assets/STIG-06-before.png)
+<img width="1200" height="230" alt="before" src="https://github.com/user-attachments/assets/52b412bb-6a92-464e-be99-08a6703fe848" />
 
 *Figure 12. Pre-remediation validation for `WN11-CC-000180`, showing that `NoAutoplayfornonVolume` was not configured.*
 
@@ -527,17 +527,34 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer' `
 
 Created the required registry path if necessary and set `NoAutoplayfornonVolume` to `1` (`REG_DWORD`).
 
-📄 **PowerShell script:** [View the remediation script](scripts/WN11-CC-000180.ps1)
+📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000180.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer'
+$name = 'NoAutoplayfornonVolume'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000180 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `NoAutoplayfornonVolume = 1`.
-
-![Autoplay for non-volume devices disabled after remediation](assets/STIG-06-after.png)
+<img width="1152" height="293" alt="after" src="https://github.com/user-attachments/assets/f54d469f-2321-4b00-95ec-8a4f070ca1ff" />
 
 *Figure 13. Post-remediation validation for `WN11-CC-000180`, confirming `NoAutoplayfornonVolume = 1`.*
 
