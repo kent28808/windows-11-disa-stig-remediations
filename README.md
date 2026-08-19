@@ -732,7 +732,7 @@ Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalizatio
 
 **Observed state:** The baseline Tenable audit returned `NULL`, indicating that the required registry value was not configured.
 
-![Lock-screen slide shows not disabled before remediation](assets/STIG-09-before.png)
+<img width="1203" height="207" alt="before" src="https://github.com/user-attachments/assets/1a98ba4c-ac09-47c2-81a8-4ea2906fee7d" />
 
 *Figure 18. Pre-remediation validation for `WN11-CC-000010`, showing that `NoLockScreenSlideshow` was not configured.*
 
@@ -743,14 +743,31 @@ Created the required registry path if necessary and set `NoLockScreenSlideshow` 
 📄 **PowerShell script:** [View the remediation script](assets/WN11-CC-000010.ps1)
 
 ```powershell
-Script
+$ErrorActionPreference = 'Stop'
+
+$path = 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization'
+$name = 'NoLockScreenSlideshow'
+
+if (-not (Test-Path $path)) {
+    New-Item -Path $path -Force | Out-Null
+}
+
+New-ItemProperty -Path $path -Name $name `
+    -PropertyType DWord -Value 1 -Force | Out-Null
+
+$value = Get-ItemPropertyValue -Path $path -Name $name
+
+if ($value -ne 1) {
+    throw "Remediation failed: $name is set to '$value'."
+}
+
+Write-Output '[PASS] WN11-CC-000010 is compliant.'
+Write-Output "$name = $value (REG_DWORD)"
 ```
 
 #### Verification
 
-Repeat the same registry query. The required compliant value is `NoLockScreenSlideshow = 1`.
-
-![Lock-screen slide shows disabled after remediation](assets/STIG-09-after.png)
+<img width="1180" height="280" alt="after" src="https://github.com/user-attachments/assets/4645db1f-53c2-4ba4-9f9c-becb070affd5" />
 
 *Figure 19. Post-remediation validation for `WN11-CC-000010`, confirming `NoLockScreenSlideshow = 1`.*
 
