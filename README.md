@@ -77,7 +77,7 @@ The lab used a dedicated Windows 11 VM hosted in Microsoft Azure. Network access
 
 <img width="1401" height="787" alt="netarch" src="https://github.com/user-attachments/assets/4a7b4bdd-5f98-4156-be6b-7e6dde8ba810" />
 
-*Figure 1. Windows 11 DISA STIG lab architecture showing controlled administrative access and credentialed Tenable compliance assessment of the dedicated Azure VM.*
+*Figure 1. Shared Log(N) Pacific Azure cyber-range environment used for this lab. Project scope was limited to the `Ken-Win-11-STIGs` Windows 11 VM and the credentialed Tenable scan path used to assess and validate the 10 selected DISA STIG requirements; the other services and member resources shown were outside the project scope.*
 
 ---
 
